@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پروفایل کاربر</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .profile-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .profile-header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        
+        .profile-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+        
+        .stats-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stats-section h3 {
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #667eea;
+        }
+        
+        .stat-label {
+            display: block;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .stat-value {
+            display: block;
+            font-size: 1.5em;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .game-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .game-stat h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+        }
+        
+        .game-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: #c82333;
+        }
+        
+        .back-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .back-btn:hover {
+            background: #5a6268;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-container {
+                padding: 10px;
+            }
+            
+            .profile-header {
+                padding: 20px;
+            }
+            
+            .profile-header h1 {
+                font-size: 2em;
+            }
+            
+            .stats-section {
+                padding: 15px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+            }
+            
+            .game-stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 10px;
+            }
+            
+            .stat-item {
+                padding: 15px;
+            }
+            
+            .stat-value {
+                font-size: 1.3em;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .profile-header h1 {
+                font-size: 1.8em;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .game-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .button-container {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+            
+            .back-btn, .logout-btn {
+                width: 100%;
+                max-width: 200px;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>پروفایل کاربر</h1>
+            <p>خوش آمدید، <span id="username">کاربر</span></p>
+        </div>
+        
+        <div id="user-stats">
+            <div class="stats-section">
+                <h3>در حال بارگذاری آمار...</h3>
+            </div>
+        </div>
+        
+        <div class="button-container">
+            <a href="/" class="back-btn">بازگشت به صفحه اصلی</a>
+            <button id="logout-btn" class="logout-btn">خروج از حساب کاربری</button>
+        </div>
+    </div>
+
+    <script src="js/profile.js"></script>
+</body>
+</html>

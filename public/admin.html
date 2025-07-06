@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل مدیریت بازی‌ها</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .admin-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        .admin-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-container, .games-list-container {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+        .form-container h3, .games-list-container h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="url"],
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .submit-button {
+            background-color: #5cb85c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .submit-button:hover {
+            background-color: #4cae4c;
+        }
+        .message {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .game-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .game-item:last-child {
+            border-bottom: none;
+        }
+        .game-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 4px;
+            margin-left: 15px;
+            object-fit: cover;
+        }
+        .game-item-info {
+            flex-grow: 1;
+        }
+        .game-item-info h4 { margin: 0 0 5px 0; }
+        .game-item-info p { margin: 0; font-size: 0.9em; color: #555; }
+        /* Basic table for games list */
+        .admin-games-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .admin-games-table th, .admin-games-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: right;
+        }
+        .admin-games-table th {
+            background-color: #f0f0f0;
+        }
+        .admin-games-table img {
+            max-width: 50px;
+            max-height: 50px;
+            border-radius: 3px;
+        }
+        
+        @media (max-width: 768px) {
+            .admin-container {
+                padding: 15px;
+                margin-top: 10px;
+            }
+            
+            .form-container, .games-list-container {
+                padding: 10px;
+            }
+            
+            .admin-games-table {
+                font-size: 0.9rem;
+            }
+            
+            .admin-games-table th, .admin-games-table td {
+                padding: 6px;
+            }
+            
+            .admin-games-table img {
+                max-width: 40px;
+                max-height: 40px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .admin-games-table {
+                font-size: 0.8rem;
+            }
+            
+            .admin-games-table th, .admin-games-table td {
+                padding: 4px;
+            }
+            
+            .admin-games-table img {
+                max-width: 30px;
+                max-height: 30px;
+            }
+            
+            .form-group input[type="text"],
+            .form-group input[type="url"],
+            .form-group textarea {
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="/" style="color:white; text-decoration:none;">پلتفرم بازی</a> - پنل مدیریت</h1>
+        <div class="auth-links">
+            <a href="/">صفحه اصلی</a>
+            <a href="/profile" id="profile-admin-link" style="display:none;">پروفایل</a>
+            <a href="#" id="logout-admin-link" style="display:none;">خروج</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="admin-container" id="admin-panel-content">
+            <div class="admin-header">
+                <h2>مدیریت بازی‌ها</h2>
+            </div>
+
+            <div id="admin-access-message" style="text-align: center; padding: 20px; display: none;">
+                <p>برای دسترسی به این بخش باید به عنوان ادمین وارد شده باشید.</p>
+                <p><a href="index.html">بازگشت به صفحه اصلی و ورود</a></p>
+            </div>
+            
+            <div id="actual-admin-content" style="display:none;">
+                <section class="form-container">
+                    <h3>افزودن بازی جدید</h3>
+                    <form id="add-game-form">
+                        <div class="form-group">
+                            <label for="game-name">نام بازی:</label>
+                            <input type="text" id="game-name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="game-description">توضیحات بازی:</label>
+                            <textarea id="game-description" name="description" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="game-image-url">آدرس تصویر بازی:</label>
+                            <input type="url" id="game-image-url" name="imageUrl" required placeholder="https://example.com/image.png">
+                        </div>
+                        <div class="form-group">
+                            <label for="game-url">آدرس فایل HTML بازی (یا لینک CDN):</label>
+                            <input type="url" id="game-url" name="gameUrl" required placeholder="https://example.com/game/index.html">
+                        </div>
+                        <button type="submit" class="submit-button">افزودن بازی</button>
+                        <div id="add-game-message" class="message" style="display:none;"></div>
+                    </form>
+                </section>
+
+                <section class="games-list-container">
+                    <h3>لیست بازی‌های موجود</h3>
+                    <div id="admin-games-list-message" class="message" style="display:none;"></div>
+                    <table class="admin-games-table" id="admin-games-table-element" style="display:none;">
+                        <thead>
+                            <tr>
+                                <th>تصویر</th>
+                                <th>نام</th>
+                                <th>توضیحات</th>
+                                <th>آدرس بازی</th>
+                                <!-- <th>عملیات</th> -->
+                            </tr>
+                        </thead>
+                        <tbody id="admin-games-tbody">
+                            <!-- Games will be listed here -->
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 1403 پلتفرم بازی ما</p>
+    </footer>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پلتفرم بازی</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>بازی‌های موجود</h1>
+        <div class="auth-links">
+            <!-- Login/Signup/Profile links will go here -->
+            <a href="#" id="login-link">ورود</a>
+            <a href="#" id="signup-link">ثبت‌نام</a>
+            <a href="/profile" id="profile-link" style="display:none;">پروفایل</a>
+            <a href="/admin" id="admin-link" style="display:none;">پنل مدیریت</a>
+            <a href="/leaderboard" id="leaderboard-link" style="display:none;">رتبه بندی</a>
+            <a href="/game" id="game-link" style="display:none;">بازی</a>
+            <a href="#" id="logout-link" style="display:none;">خروج</a>
+        </div>
+    </header>
+    <main>
+        <section id="games-list" class="games-container">
+            <!-- Games will be loaded here by JavaScript -->
+            <p>در حال بارگذاری بازی‌ها...</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 1403 پلتفرم بازی ما</p>
+    </footer>
+
+    <!-- Modals for Login/Signup -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" data-modal="login-modal">&times;</span>
+            <h2>ورود به حساب کاربری</h2>
+            <form id="login-form">
+                <div>
+                    <label for="login-identifier">نام کاربری/ایمیل/موبایل:</label>
+                    <input type="text" id="login-identifier" name="loginIdentifier" required>
+                </div>
+                <div>
+                    <label for="login-password">رمز عبور:</label>
+                    <input type="password" id="login-password" name="password" required>
+                </div>
+                <button type="submit">ورود</button>
+                <p id="login-message" class="message"></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="signup-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" data-modal="signup-modal">&times;</span>
+            <h2>ایجاد حساب کاربری جدید</h2>
+            <form id="signup-form">
+                <div>
+                    <label for="signup-username">نام کاربری:</label>
+                    <input type="text" id="signup-username" name="username" required minlength="3">
+                </div>
+                <div>
+                    <label for="signup-email">ایمیل:</label>
+                    <input type="email" id="signup-email" name="email">
+                </div>
+                <div>
+                    <label for="signup-mobile">شماره موبایل:</label>
+                    <input type="tel" id="signup-mobile" name="mobile" pattern="[0-9]{10,15}">
+                </div>
+                <div>
+                    <label for="signup-password">رمز عبور:</label>
+                    <input type="password" id="signup-password" name="password" required minlength="6">
+                </div>
+                <button type="submit">ثبت‌نام</button>
+                <p id="signup-message" class="message"></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

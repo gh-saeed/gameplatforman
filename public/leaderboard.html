@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رتبه‌بندی</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .leaderboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .leaderboard-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .leaderboard-header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        
+        .leaderboard-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+        
+        .game-selector {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .game-selector label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .game-selector select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            background: white;
+        }
+        
+        .game-selector select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .dual-leaderboard {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        
+        .leaderboard-table-wrap {
+            flex: 1 1 350px;
+            min-width: 320px;
+        }
+        
+        .leaderboard-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .leaderboard-header-row {
+            display: grid;
+            grid-template-columns: 80px 2fr 1fr 1fr 1fr;
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+        }
+        
+        .leaderboard-row {
+            display: grid;
+            grid-template-columns: 80px 2fr 1fr 1fr 1fr;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s;
+        }
+        
+        .leaderboard-row:hover {
+            background: #f8f9fa;
+        }
+        
+        .leaderboard-row.rank-1 {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+        }
+        
+        .leaderboard-row.rank-2 {
+            background: linear-gradient(135deg, #c0c0c0 0%, #e5e5e5 100%);
+        }
+        
+        .leaderboard-row.rank-3 {
+            background: linear-gradient(135deg, #cd7f32 0%, #daa520 100%);
+        }
+        
+        .rank {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .username {
+            font-weight: bold;
+        }
+        
+        .score, .sessions, .play-time {
+            text-align: center;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .back-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .back-btn:hover {
+            background: #5a6268;
+        }
+        
+        @media (max-width: 900px) {
+            .dual-leaderboard {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .leaderboard-header h1 {
+                font-size: 2em;
+            }
+            
+            .leaderboard-header-row,
+            .leaderboard-row {
+                grid-template-columns: 60px 1fr 1fr;
+                font-size: 0.9em;
+            }
+            
+            .sessions, .play-time {
+                display: none;
+            }
+            
+            .leaderboard-container {
+                padding: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .leaderboard-header-row,
+            .leaderboard-row {
+                grid-template-columns: 50px 1fr 1fr;
+                font-size: 0.8em;
+                padding: 10px;
+            }
+            
+            .rank {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="leaderboard-container">
+        <div class="leaderboard-header">
+            <h1>رتبه‌بندی</h1>
+            <p>مقایسه امتیازات با سایر بازیکنان</p>
+        </div>
+        
+        <div class="game-selector">
+            <label for="game-select">انتخاب بازی:</label>
+            <select id="game-select">
+                <option value="">انتخاب بازی...</option>
+            </select>
+        </div>
+        
+        <div id="loading" class="loading" style="display: none;">
+            در حال بارگذاری...
+        </div>
+        
+        <div id="leaderboard-container">
+            <p>لطفاً یک بازی انتخاب کنید</p>
+        </div>
+        
+        <div style="text-align: center;">
+            <a href="/" class="back-btn">بازگشت به صفحه اصلی</a>
+        </div>
+    </div>
+
+    <script src="js/leaderboard.js"></script>
+</body>
+</html>
